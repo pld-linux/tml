@@ -31,7 +31,7 @@ Mailing list manager written in Ruby
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_localstatedir}/spool/tml,%{_bindir},%{_sbindir},%{_libdir}/%{name}/templates,%{ruby_rubylibdir}/%{name},%{_localstatedir}/spool/%{name}}
+install -d $RPM_BUILD_ROOT{%{_localstatedir}/spool/tml,%{_bindir},%{_sbindir},%{_libdir}/%{name}/templates,%{ruby_rubylibdir}/%{name},%{_localstatedir}/spool/%{name},/etc/mail}
 
 install tmladmin tmlctl $RPM_BUILD_ROOT%{_sbindir}
 install tml $RPM_BUILD_ROOT%{_libdir}/%{name}
