@@ -31,12 +31,13 @@ Mailing list manager written in Ruby
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_localstatedir}/spool/tml,%{_bindir},%{_sbindir},%{_libdir}/%{name}/templates,%{ruby_rubylibdir}/%{name}}
+install -d $RPM_BUILD_ROOT{%{_localstatedir}/spool/tml,%{_bindir},%{_sbindir},%{_libdir}/%{name}/templates,%{ruby_rubylibdir}/%{name},%{_localstatedir}/spool/%{name}}
 
 install tmladmin tmlctl $RPM_BUILD_ROOT%{_sbindir}
 install tml $RPM_BUILD_ROOT%{_libdir}/%{name}
 install tml.rb mail.rb tml-file.rb tml-mysql.rb $RPM_BUILD_ROOT%{ruby_rubylibdir}/%{name}
 install templates/* $RPM_BUILD_ROOT%{_libdir}/%{name}/templates
+echo '$domain = "localdomain"' > $RPM_BUILD_ROOT/etc/mail/tml.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -44,6 +45,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README.html tommy.css mysql.sql
+%config(noreplace) /etc/mail/tml.conf
 %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/templates
 %{_libdir}/%{name}/templates/*
@@ -51,6 +53,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/tmladmin
 %attr(755,root,root) %{_sbindir}/tmlctl
 %{ruby_rubylibdir}/%{name}/*
+%attr(755,tml,tml) %{_localstatedir}/spool/%{name}
 
 %pre
 if [ -n "`getgid %{name}`" ]; then
