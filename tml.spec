@@ -1,5 +1,6 @@
 %define	ruby_rubylibdir %(ruby -r rbconfig -e 'print Config::CONFIG["rubylibdir"]')
 Summary:	Mailing list manager written in Ruby
+Summary(pl):	Zarz±dca list dyskusyjnych napisany w jêzyku Ruby
 Name:		tml
 Version:	0.5
 Release:	1
@@ -11,17 +12,24 @@ Patch0:		%{name}-paths.patch
 URL:		http://www.tmtm.org/ja/ruby/tml/
 BuildRequires:	ruby
 BuildRequires:	ruby-devel
-BuildArch:	noarch
+Requires(pre):	/usr/bin/getgid
+Requires(pre):	/bin/id
+Requires(pre):	/usr/sbin/groupadd
+Requires(pre):	/usr/sbin/useradd
+Requires(post):	fileutils
+Requires(post):	grep
+Requires(postun):	/usr/sbin/groupdel
+Requires(postun):	/usr/sbin/userdel
 Requires:	ruby
 Requires:	ruby-mysql
-Requires(pre):	/usr/sbin/useradd
-Requires(pre):	/usr/sbin/groupadd
-Requires(postun):	/usr/sbin/userdel
-Requires(postun):	/usr/sbin/groupdel
+BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Mailing list manager written in Ruby
+Mailing list manager written in Ruby.
+
+%description -l pl
+Zarz±dca list dyskusyjnych napisany w jêzyku Ruby.
 
 %prep
 %setup -q
@@ -52,7 +60,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/%{name}/tml
 %attr(755,root,root) %{_sbindir}/tmladmin
 %attr(755,root,root) %{_sbindir}/tmlctl
-%{ruby_rubylibdir}/%{name}/*
+%{ruby_rubylibdir}/%{name}
 %attr(755,tml,tml) %{_localstatedir}/spool/%{name}
 
 %pre
