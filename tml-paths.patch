@@ -1,0 +1,90 @@
+diff -ur tml-0.5-orig/tml tml-0.5/tml
+--- tml-0.5-orig/tml	2004-04-27 06:33:18.000000000 -0600
++++ tml-0.5/tml	2004-05-23 19:18:03.486084320 -0600
+@@ -8,13 +8,12 @@
+ require "getopts"
+ require "net/smtp"
+ 
+-$script_dir = File::dirname $0
+-conf = $script_dir+"/tml.conf"
++conf = "/etc/mail/tml.conf"
+ load conf if File::exist? conf
+ 
+-require $script_dir+"/tml.rb"
+-require $script_dir+"/tml-file.rb"
+-require $script_dir+"/mail.rb"
++require "tml/tml"
++require "tml/tml-file"
++require "tml/mail"
+ 
+ unless getopts("f:", "domain:") then
+   $stderr.puts "invalid usage"
+@@ -35,7 +34,7 @@
+ end
+ 
+ if $database == "mysql" then
+-  require "#{$script_dir}/tml-mysql.rb"
++  require "tml/tml-mysql"
+   $db_class = TML::Mysql
+   $spool_class = TML::Mysql
+ end
+diff -ur tml-0.5-orig/tml.rb tml-0.5/tml.rb
+--- tml-0.5-orig/tml.rb	2004-05-08 22:07:01.000000000 -0600
++++ tml-0.5/tml.rb	2004-05-23 19:24:54.895540576 -0600
+@@ -13,7 +13,7 @@
+   @@parameters = {
+     :max_lock_time	=> 30*60,
+     :lock_timeout	=> 5*60,
+-    :tml_dir		=> "/usr/local/tml",
++    :tml_dir		=> "/usr/lib/tml",
+     :var_dir		=> "/var/spool/tml",
+     :ml_dir		=> "ml",
+     :etc_dir		=> "etc",
+@@ -110,10 +110,10 @@
+ 
+   def self.db_class()
+     if defined? $database and $database == "mysql" then
+-      require "#{self.dparam(:tml_dir)}/tml-mysql.rb"
++      require "tml/tml-mysql"
+       TML::Mysql
+     else
+-      require "#{self.dparam(:tml_dir)}/tml-file.rb"
++      require "tml/tml-file"
+       TML::F
+     end
+   end
+Only in tml-0.5: tml.rb~
+diff -ur tml-0.5-orig/tmladmin tml-0.5/tmladmin
+--- tml-0.5-orig/tmladmin	2004-05-08 08:48:42.000000000 -0600
++++ tml-0.5/tmladmin	2004-05-23 19:17:51.915843264 -0600
+@@ -7,10 +7,9 @@
+ 
+ require "getopts"
+ 
+-$script_dir = File::dirname $0
+-require $script_dir+"/tml.rb"
++require "tml/tml"
+ 
+-conf = $script_dir+"/tml.conf"
++conf = "/etc/mail/tml.conf"
+ load conf if File::exist? conf
+ 
+ $cmds = {
+diff -ur tml-0.5-orig/tmlctl tml-0.5/tmlctl
+--- tml-0.5-orig/tmlctl	2004-05-08 22:07:01.000000000 -0600
++++ tml-0.5/tmlctl	2004-05-23 19:19:28.672134072 -0600
+@@ -8,11 +8,10 @@
+ require "getopts"
+ require "net/smtp"
+ 
+-$script_dir = File::dirname $0
+-require $script_dir+"/tml.rb"
+-require $script_dir+"/mail.rb"
++require "tml/tml"
++require "tml/mail"
+ 
+-conf = $script_dir+"/tml.conf"
++conf = "/etc/mail/tml.conf"
+ load conf if File::exist? conf
+ 
+ class TmlCtlError < StandardError
