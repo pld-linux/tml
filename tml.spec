@@ -109,9 +109,9 @@ if [ -e /etc/smrsh -a ! -e /etc/smrsh/tml ]; then
 	chmod ug+rx /etc/smrsh/tml
 
 	echo "Your installation has been detected to have SMRSH, the SendMail"
-	echo "Restricted SHell, installed.  If this is your first install, you"
+	echo "Restricted SHell, installed. If this is your first install, you"
 	echo "will want to change the address for TML in the aliases file to be"
-	echo "   /etc/smrsh/tml instead of /usr/bin/tml"
+	echo "/etc/smrsh/tml instead of /usr/bin/tml"
 	chmod a+x /etc/smrsh/tml
 fi
 
