@@ -31,10 +31,10 @@ Mailing list manager written in Ruby
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_localstatedir}/spool/tml,%{_bindir},%{_sbindir},%{_libdir}/%{name}/templates,%{ruby_rubylibdir}/%{name},%{_localstatedir}/spool/%{name},/etc/mail}
+install -d $RPM_BUILD_ROOT{%{_localstatedir}/spool/tml,%{_sbindir},%{_libdir}/%{name}/templates,%{ruby_rubylibdir}/%{name},%{_localstatedir}/spool/%{name},/etc/mail}
 
-install tmladmin tmlctl $RPM_BUILD_ROOT%{_sbindir}
-install tml $RPM_BUILD_ROOT%{_libdir}/%{name}
+install tmladmin $RPM_BUILD_ROOT%{_sbindir}
+install tml tmlctl $RPM_BUILD_ROOT%{_libdir}/%{name}
 install tml.rb mail.rb tml-file.rb tml-mysql.rb $RPM_BUILD_ROOT%{ruby_rubylibdir}/%{name}
 install templates/* $RPM_BUILD_ROOT%{_libdir}/%{name}/templates
 echo '$domain = "localdomain"' > $RPM_BUILD_ROOT/etc/mail/tml.conf
