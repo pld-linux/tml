@@ -1,6 +1,12 @@
 diff -ur tml-0.5-orig/tml tml-0.5/tml
 --- tml-0.5-orig/tml	2004-04-27 06:33:18.000000000 -0600
-+++ tml-0.5/tml	2004-05-23 19:18:03.486084320 -0600
++++ tml-0.5/tml	2004-05-23 19:42:16.812145176 -0600
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/ruby
++#! /usr/bin/ruby
+ # $Id$
+ #
+ # Copyright (C) 2003-2004 TOMITA Masahiro
 @@ -8,13 +8,12 @@
  require "getopts"
  require "net/smtp"
@@ -30,7 +36,7 @@ diff -ur tml-0.5-orig/tml tml-0.5/tml
  end
 diff -ur tml-0.5-orig/tml.rb tml-0.5/tml.rb
 --- tml-0.5-orig/tml.rb	2004-05-08 22:07:01.000000000 -0600
-+++ tml-0.5/tml.rb	2004-05-23 19:24:54.895540576 -0600
++++ tml-0.5/tml.rb	2004-05-23 19:40:02.081627328 -0600
 @@ -13,7 +13,7 @@
    @@parameters = {
      :max_lock_time	=> 30*60,
@@ -56,7 +62,13 @@ diff -ur tml-0.5-orig/tml.rb tml-0.5/tml.rb
 Only in tml-0.5: tml.rb~
 diff -ur tml-0.5-orig/tmladmin tml-0.5/tmladmin
 --- tml-0.5-orig/tmladmin	2004-05-08 08:48:42.000000000 -0600
-+++ tml-0.5/tmladmin	2004-05-23 19:17:51.915843264 -0600
++++ tml-0.5/tmladmin	2004-05-23 19:41:08.898469624 -0600
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/ruby
++#! /usr/bin/ruby
+ # $Id$
+ #
+ # Copyright (C) 2003-2004 TOMITA Masahiro
 @@ -7,10 +7,9 @@
  
  require "getopts"
@@ -70,9 +82,16 @@ diff -ur tml-0.5-orig/tmladmin tml-0.5/tmladmin
  load conf if File::exist? conf
  
  $cmds = {
+Only in tml-0.5: tmladmin~
 diff -ur tml-0.5-orig/tmlctl tml-0.5/tmlctl
 --- tml-0.5-orig/tmlctl	2004-05-08 22:07:01.000000000 -0600
-+++ tml-0.5/tmlctl	2004-05-23 19:19:28.672134072 -0600
++++ tml-0.5/tmlctl	2004-05-23 19:40:40.997711184 -0600
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/ruby
++#! /usr/bin/ruby
+ # $Id$
+ #
+ # Copyright (C) 2003 TOMITA Masahiro
 @@ -8,11 +8,10 @@
  require "getopts"
  require "net/smtp"
@@ -88,3 +107,5 @@ diff -ur tml-0.5-orig/tmlctl tml-0.5/tmlctl
  load conf if File::exist? conf
  
  class TmlCtlError < StandardError
+Only in tml-0.5: tmlctl~
+Only in tml-0.5: tml~
