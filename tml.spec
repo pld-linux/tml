@@ -10,6 +10,7 @@ Source0:	http://www.tmtm.org/ja/ruby/tml/%{name}-%{version}.tar.gz
 # Source0-md5:	3d2398c0ab0e72e7601091938502896e
 Patch0:		%{name}-paths.patch
 URL:		http://www.tmtm.org/ja/ruby/tml/
+BuildRequires:	rpmbuild(macros) >= 1.159
 BuildRequires:	ruby
 BuildRequires:	ruby-devel
 Requires(pre):	/usr/bin/getgid
@@ -22,6 +23,8 @@ Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
 Requires:	ruby
 Requires:	ruby-mysql
+Provides:	group(tml)
+Provides:	user(tml)
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -50,44 +53,31 @@ echo '$domain = "localdomain"' > $RPM_BUILD_ROOT/etc/mail/tml.conf
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
-%defattr(644,root,root,755)
-%doc README.html tommy.css mysql.sql
-%config(noreplace) /etc/mail/tml.conf
-%dir %{_libdir}/%{name}
-%dir %{_libdir}/%{name}/templates
-%{_libdir}/%{name}/templates/*
-%attr(755,root,root) %{_libdir}/%{name}/tml
-%attr(755,root,root) %{_sbindir}/tmladmin
-%attr(755,root,root) %{_sbindir}/tmlctl
-%{ruby_rubylibdir}/%{name}
-%attr(755,tml,tml) %{_localstatedir}/spool/%{name}
-
 %pre
-if [ -n "`getgid %{name}`" ]; then
-	if [ "`getgid %{name}`" != "132" ]; then
-		echo "Error: group %{name} doesn't have gid=132. Correct this before installing %{name}." 1>&2
+if [ -n "`/usr/bin/getgid tml`" ]; then
+	if [ "`/usr/bin/getgid tml`" != "132" ]; then
+		echo "Error: group tml doesn't have gid=132. Correct this before installing %{name}." 1>&2
 		exit 1
 	fi
 else
-	echo "Adding group %{name} GID=132"
-	/usr/sbin/groupadd -f -g 132 -r %{name}
+	echo "Adding group tml GID=132"
+	/usr/sbin/groupadd -f -g 132 -r tml
 fi
 
-if [ -n "`id -u %{name} 2>/dev/null`" ]; then
-	if [ "`id -u %{name}`" != "132" ]; then
-		echo "Error: user %{name} doesn't have uid=132. Correct this before installing %{name}." 1>&2
+if [ -n "`/bin/id -u tml 2>/dev/null`" ]; then
+	if [ "`/bin/id -u tml`" != "132" ]; then
+		echo "Error: user tml doesn't have uid=132. Correct this before installing %{name}." 1>&2
 		exit 1
 	fi
 else
-	echo "Adding user %{name} UID=132"
-	/usr/sbin/useradd -u 132 -r -d %{_localstatedir}/spool/%{name} -s /bin/false -c "Ecartis User" -g %{name} %{name} 1>&2
+	echo "Adding user tml UID=132"
+	/usr/sbin/useradd -u 132 -r -d %{_localstatedir}/spool/tml -s /bin/false -c "Ecartis User" -g tml tml 1>&2
 fi
 
 %postun
 if [ "$1" = "0" ]; then
-	/usr/sbin/userdel  %{name}
-	/usr/sbin/groupdel %{name}
+	%userremove %{name}
+	%groupremove %{name}
 fi
 
 %post
@@ -124,3 +114,16 @@ if [ -e /etc/smrsh -a ! -e /etc/smrsh/tml ]; then
 	echo "   /etc/smrsh/tml instead of /usr/bin/tml"
 	chmod a+x /etc/smrsh/tml
 fi
+
+%files
+%defattr(644,root,root,755)
+%doc README.html tommy.css mysql.sql
+%config(noreplace) /etc/mail/tml.conf
+%dir %{_libdir}/%{name}
+%dir %{_libdir}/%{name}/templates
+%{_libdir}/%{name}/templates/*
+%attr(755,root,root) %{_libdir}/%{name}/tml
+%attr(755,root,root) %{_sbindir}/tmladmin
+%attr(755,root,root) %{_sbindir}/tmlctl
+%{ruby_rubylibdir}/%{name}
+%attr(755,tml,tml) %{_localstatedir}/spool/tml
