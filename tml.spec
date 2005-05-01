@@ -10,7 +10,7 @@ Source0:	http://www.tmtm.org/ja/ruby/tml/%{name}-%{version}.tar.gz
 # Source0-md5:	3d2398c0ab0e72e7601091938502896e
 Patch0:		%{name}-paths.patch
 URL:		http://www.tmtm.org/ja/ruby/tml/
-BuildRequires:	rpmbuild(macros) >= 1.159
+BuildRequires:	rpmbuild(macros) >= 1.202
 BuildRequires:	ruby
 BuildRequires:	ruby-devel
 Requires(pre):	/usr/bin/getgid
@@ -54,25 +54,8 @@ echo '$domain = "localdomain"' > $RPM_BUILD_ROOT/etc/mail/tml.conf
 rm -rf $RPM_BUILD_ROOT
 
 %pre
-if [ -n "`/usr/bin/getgid tml`" ]; then
-	if [ "`/usr/bin/getgid tml`" != "132" ]; then
-		echo "Error: group tml doesn't have gid=132. Correct this before installing %{name}." 1>&2
-		exit 1
-	fi
-else
-	echo "Adding group tml GID=132"
-	/usr/sbin/groupadd -f -g 132 -r tml
-fi
-
-if [ -n "`/bin/id -u tml 2>/dev/null`" ]; then
-	if [ "`/bin/id -u tml`" != "132" ]; then
-		echo "Error: user tml doesn't have uid=132. Correct this before installing %{name}." 1>&2
-		exit 1
-	fi
-else
-	echo "Adding user tml UID=132"
-	/usr/sbin/useradd -u 132 -r -d %{_localstatedir}/spool/tml -s /bin/false -c "Ecartis User" -g tml tml 1>&2
-fi
+%groupadd -f -g 132 -r tml
+%useradd -u 132 -r -d %{_localstatedir}/spool/tml -s /bin/false -c "Ecartis User" -g tml tml
 
 %postun
 if [ "$1" = "0" ]; then
