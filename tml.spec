@@ -1,4 +1,3 @@
-%define	ruby_rubylibdir %(ruby -r rbconfig -e 'print Config::CONFIG["rubylibdir"]')
 Summary:	Mailing list manager written in Ruby
 Summary(pl):	Zarz±dca list dyskusyjnych napisany w jêzyku Ruby
 Name:		tml
@@ -10,17 +9,17 @@ Source0:	http://www.tmtm.org/ja/ruby/tml/%{name}-%{version}.tar.gz
 # Source0-md5:	3d2398c0ab0e72e7601091938502896e
 Patch0:		%{name}-paths.patch
 URL:		http://www.tmtm.org/ja/ruby/tml/
-BuildRequires:	rpmbuild(macros) >= 1.202
+BuildRequires:	rpmbuild(macros) >= 1.272
 BuildRequires:	ruby
 BuildRequires:	ruby-devel
-Requires(pre):	/usr/bin/getgid
-Requires(pre):	/bin/id
-Requires(pre):	/usr/sbin/groupadd
-Requires(pre):	/usr/sbin/useradd
 Requires(post):	fileutils
 Requires(post):	grep
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
+Requires(pre):	/bin/id
+Requires(pre):	/usr/bin/getgid
+Requires(pre):	/usr/sbin/groupadd
+Requires(pre):	/usr/sbin/useradd
 Requires:	ruby
 Requires:	ruby-mysql
 Provides:	group(tml)
@@ -55,7 +54,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %pre
 %groupadd -f -g 132 -r tml
-%useradd -u 132 -r -d %{_localstatedir}/spool/tml -s /bin/false -c "Ecartis User" -g tml tml
+%useradd -u 132 -r -d %{_localstatedir}/spool/tml -s /bin/false -c "TML Mailing list manager" -g tml tml
 
 %postun
 if [ "$1" = "0" ]; then
