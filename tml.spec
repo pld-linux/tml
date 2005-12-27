@@ -2,7 +2,7 @@ Summary:	Mailing list manager written in Ruby
 Summary(pl):	Zarz±dca list dyskusyjnych napisany w jêzyku Ruby
 Name:		tml
 Version:	0.5
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://www.tmtm.org/ja/ruby/tml/%{name}-%{version}.tar.gz
@@ -10,7 +10,7 @@ Source0:	http://www.tmtm.org/ja/ruby/tml/%{name}-%{version}.tar.gz
 Patch0:		%{name}-paths.patch
 URL:		http://www.tmtm.org/ja/ruby/tml/
 BuildRequires:	rpmbuild(macros) >= 1.272
-BuildRequires:	ruby
+BuildRequires:	ruby-modules
 BuildRequires:	ruby-devel
 Requires(post):	fileutils
 Requires(post):	grep
@@ -20,7 +20,7 @@ Requires(pre):	/bin/id
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
-Requires:	ruby
+Requires:	ruby-modules
 Requires:	ruby-mysql
 Provides:	group(tml)
 Provides:	user(tml)
