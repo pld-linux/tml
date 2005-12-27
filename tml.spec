@@ -10,7 +10,6 @@ Source0:	http://www.tmtm.org/ja/ruby/tml/%{name}-%{version}.tar.gz
 Patch0:		%{name}-paths.patch
 URL:		http://www.tmtm.org/ja/ruby/tml/
 BuildRequires:	rpmbuild(macros) >= 1.272
-BuildRequires:	ruby-modules
 BuildRequires:	ruby-devel
 Requires(post):	fileutils
 Requires(post):	grep
