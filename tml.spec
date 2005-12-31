@@ -19,7 +19,7 @@ Requires(pre):	/bin/id
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
-%ruby_mod_ver_requires_eq
+%{?ruby_mod_ver_requires_eq}
 Requires:	ruby-mysql
 Provides:	group(tml)
 Provides:	user(tml)
