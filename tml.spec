@@ -1,5 +1,5 @@
 Summary:	Mailing list manager written in Ruby
-Summary(pl.UTF-8):   Zarządca list dyskusyjnych napisany w języku Ruby
+Summary(pl.UTF-8):	Zarządca list dyskusyjnych napisany w języku Ruby
 Name:		tml
 Version:	0.5
 Release:	2
