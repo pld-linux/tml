@@ -1,5 +1,5 @@
 Summary:	Mailing list manager written in Ruby
-Summary(pl):	Zarz±dca list dyskusyjnych napisany w jêzyku Ruby
+Summary(pl.UTF-8):   ZarzÄ…dca list dyskusyjnych napisany w jÄ™zyku Ruby
 Name:		tml
 Version:	0.5
 Release:	2
@@ -29,8 +29,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 Mailing list manager written in Ruby.
 
-%description -l pl
-Zarz±dca list dyskusyjnych napisany w jêzyku Ruby.
+%description -l pl.UTF-8
+ZarzÄ…dca list dyskusyjnych napisany w jÄ™zyku Ruby.
 
 %prep
 %setup -q
