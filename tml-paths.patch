@@ -1,9 +1,9 @@
-diff -ur tml-0.5-orig/tml tml-0.5/tml
---- tml-0.5-orig/tml	2004-04-27 06:33:18.000000000 -0600
-+++ tml-0.5/tml	2004-05-23 19:42:16.812145176 -0600
+diff -burNp tml-0.5.1/tml tml-0.5.1-dud/tml
+--- tml-0.5.1/tml	2004-07-05 19:28:58.000000000 +0200
++++ tml-0.5.1-dud/tml	2009-03-06 20:40:39.678073276 +0100
 @@ -1,4 +1,4 @@
 -#!/usr/local/bin/ruby
-+#! /usr/bin/ruby
++#!/usr/bin/ruby
  # $Id$
  #
  # Copyright (C) 2003-2004 TOMITA Masahiro
@@ -25,7 +25,7 @@ diff -ur tml-0.5-orig/tml tml-0.5/tml
  
  unless getopts("f:", "domain:") then
    $stderr.puts "invalid usage"
-@@ -35,7 +34,7 @@
+@@ -35,7 +34,7 @@ if not $domain then
  end
  
  if $database == "mysql" then
@@ -34,38 +34,12 @@ diff -ur tml-0.5-orig/tml tml-0.5/tml
    $db_class = TML::Mysql
    $spool_class = TML::Mysql
  end
-diff -ur tml-0.5-orig/tml.rb tml-0.5/tml.rb
---- tml-0.5-orig/tml.rb	2004-05-08 22:07:01.000000000 -0600
-+++ tml-0.5/tml.rb	2004-05-23 19:40:02.081627328 -0600
-@@ -13,7 +13,7 @@
-   @@parameters = {
-     :max_lock_time	=> 30*60,
-     :lock_timeout	=> 5*60,
--    :tml_dir		=> "/usr/local/tml",
-+    :tml_dir		=> "/usr/lib/tml",
-     :var_dir		=> "/var/spool/tml",
-     :ml_dir		=> "ml",
-     :etc_dir		=> "etc",
-@@ -110,10 +110,10 @@
- 
-   def self.db_class()
-     if defined? $database and $database == "mysql" then
--      require "#{self.dparam(:tml_dir)}/tml-mysql.rb"
-+      require "tml/tml-mysql"
-       TML::Mysql
-     else
--      require "#{self.dparam(:tml_dir)}/tml-file.rb"
-+      require "tml/tml-file"
-       TML::F
-     end
-   end
-Only in tml-0.5: tml.rb~
-diff -ur tml-0.5-orig/tmladmin tml-0.5/tmladmin
---- tml-0.5-orig/tmladmin	2004-05-08 08:48:42.000000000 -0600
-+++ tml-0.5/tmladmin	2004-05-23 19:41:08.898469624 -0600
+diff -burNp tml-0.5.1/tmladmin tml-0.5.1-dud/tmladmin
+--- tml-0.5.1/tmladmin	2004-05-08 16:48:42.000000000 +0200
++++ tml-0.5.1-dud/tmladmin	2009-03-06 20:43:12.911807265 +0100
 @@ -1,4 +1,4 @@
 -#!/usr/local/bin/ruby
-+#! /usr/bin/ruby
++#!/usr/bin/ruby
  # $Id$
  #
  # Copyright (C) 2003-2004 TOMITA Masahiro
@@ -82,13 +56,12 @@ diff -ur tml-0.5-orig/tmladmin tml-0.5/tmladmin
  load conf if File::exist? conf
  
  $cmds = {
-Only in tml-0.5: tmladmin~
-diff -ur tml-0.5-orig/tmlctl tml-0.5/tmlctl
---- tml-0.5-orig/tmlctl	2004-05-08 22:07:01.000000000 -0600
-+++ tml-0.5/tmlctl	2004-05-23 19:40:40.997711184 -0600
+diff -burNp tml-0.5.1/tmlctl tml-0.5.1-dud/tmlctl
+--- tml-0.5.1/tmlctl	2004-05-09 06:07:01.000000000 +0200
++++ tml-0.5.1-dud/tmlctl	2009-03-06 20:44:06.471799721 +0100
 @@ -1,4 +1,4 @@
 -#!/usr/local/bin/ruby
-+#! /usr/bin/ruby
++#!/usr/bin/ruby
  # $Id$
  #
  # Copyright (C) 2003 TOMITA Masahiro
@@ -107,5 +80,28 @@ diff -ur tml-0.5-orig/tmlctl tml-0.5/tmlctl
  load conf if File::exist? conf
  
  class TmlCtlError < StandardError
-Only in tml-0.5: tmlctl~
-Only in tml-0.5: tml~
+diff -burNp tml-0.5.1/tml.rb tml-0.5.1-dud/tml.rb
+--- tml-0.5.1/tml.rb	2004-07-04 18:57:31.000000000 +0200
++++ tml-0.5.1-dud/tml.rb	2009-03-06 20:42:15.641813037 +0100
+@@ -14,7 +14,7 @@ class TML
+   @@parameters = {
+     :max_lock_time	=> 30*60,
+     :lock_timeout	=> 5*60,
+-    :tml_dir		=> "/usr/local/tml",
++    :tml_dir		=> "/usr/lib/tml",
+     :var_dir		=> "/var/spool/tml",
+     :ml_dir		=> "ml",
+     :etc_dir		=> "etc",
+@@ -111,10 +111,10 @@ class TML
+ 
+   def self.db_class()
+     if defined? $database and $database == "mysql" then
+-      require "#{self.dparam(:tml_dir)}/tml-mysql.rb"
++      require "tml/tml-mysql"
+       TML::Mysql
+     else
+-      require "#{self.dparam(:tml_dir)}/tml-file.rb"
++      require "tml/tml-file"
+       TML::F
+     end
+   end
