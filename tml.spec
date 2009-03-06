@@ -1,12 +1,12 @@
 Summary:	Mailing list manager written in Ruby
 Summary(pl.UTF-8):	Zarządca list dyskusyjnych napisany w języku Ruby
 Name:		tml
-Version:	0.5
-Release:	2
+Version:	0.5.1
+Release:	1
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://www.tmtm.org/ja/ruby/tml/%{name}-%{version}.tar.gz
-# Source0-md5:	3d2398c0ab0e72e7601091938502896e
+# Source0-md5:	fc6b32f55999c0d7887c386842a6092d
 Patch0:		%{name}-paths.patch
 URL:		http://www.tmtm.org/ja/ruby/tml/
 BuildRequires:	rpmbuild(macros) >= 1.277
@@ -104,7 +104,7 @@ fi
 %dir %{_libdir}/%{name}/templates
 %{_libdir}/%{name}/templates/*
 %attr(755,root,root) %{_libdir}/%{name}/tml
+%attr(755,root,root) %{_libdir}/%{name}/tmlctl
 %attr(755,root,root) %{_sbindir}/tmladmin
-%attr(755,root,root) %{_sbindir}/tmlctl
 %{ruby_rubylibdir}/%{name}
 %attr(755,tml,tml) %{_localstatedir}/spool/tml
